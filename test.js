@@ -5,6 +5,7 @@ var chroot = require('./index');
 var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
+var through2 = require('through2');
 chroot(gulp);
 
 before(function(done) {
@@ -49,5 +50,17 @@ it('should work with dep only', function() {
   gulp.start('testDep');
 });
 
-it('should work with promise', function() {
+it('should work with promise', function(done) {
+  gulp.chroot('child', function() {
+    gulp.task('promise', function() {
+      return gulp.src('test.txt')
+                .pipe(through2.obj(function(){
+                  console.log('inside promise task');
+                  console.log(process.cwd());
+                  assert.equal(process.cwd(), path.join(__dirname, 'child'));
+                  done();
+                }));
+    });
+  });
+  gulp.start('promise');
 });

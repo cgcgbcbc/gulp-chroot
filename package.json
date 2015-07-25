@@ -1,6 +1,6 @@
 {
   "name": "gulp-chroot",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "gulp chroot plugin",
   "license": "MIT",
   "repository": "cgcgbcbc/gulp-chroot",
@@ -24,6 +24,7 @@
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.0",
-    "mocha": "*"
+    "mocha": "*",
+    "through2": "^2.0.0"
   }
 }

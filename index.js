@@ -13,6 +13,9 @@ module.exports = function (gulp) {
     cb();
     rootStack.pop(root);
   };
+  gulp.restore = function() {
+    process.chdir(rootStack[0]);
+  };
   shim(gulp, 'task', function(task) {
     return function (name, deps, fn) {
       var childRoot = path.join.apply(path, rootStack);
@@ -27,7 +30,6 @@ module.exports = function (gulp) {
         if (typeof fn === 'function') {
           fn.apply(this, arguments);
         }
-        process.chdir(parentRoot);
       }
     };
   });
