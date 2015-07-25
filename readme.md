@@ -26,4 +26,9 @@ gulp.task('b', function() {
 
 ```
 
+## Limit
+
+not work with promise.
+
 MIT © [cgcgbcbc](https://github.com/cgcgbcbc/gulp-chroot)
+
