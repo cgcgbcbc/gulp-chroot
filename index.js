@@ -23,8 +23,6 @@ module.exports = function (gulp) {
       }
       return task.call(this, name, deps, fnWrapper);
       function fnWrapper() {
-        console.log(childRoot);
-        console.log(parentRoot);
         process.chdir(childRoot);
         if (typeof fn === 'function') {
           fn.apply(this, arguments);
