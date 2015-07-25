@@ -1,0 +1,29 @@
+{
+  "name": "gulp-chroot",
+  "version": "0.0.0",
+  "description": "My riveting gulp plugin",
+  "license": "MIT",
+  "repository": "cgcgbcbc/gulp-chroot",
+  "author": {
+    "name": "cgcgbcbc",
+    "email": "cgcgbcbc@163.com",
+    "url": "github.com/cgcgbcbc/gulp-chroot"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "gulpplugin"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "mocha": "*"
+  }
+}
