@@ -1,8 +1,5 @@
 # gulp-chroot [![Build Status](https://travis-ci.org/cgcgbcbc/gulp-chroot.svg?branch=master)](https://travis-ci.org/cgcgbcbc/gulp-chroot)
 
-> My riveting gulp plugin
-
-
 ## Install
 
 ```
@@ -15,29 +12,18 @@ $ npm install --save-dev gulp-chroot
 ```js
 var gulp = require('gulp');
 var chroot = require('gulp-chroot');
+chroot(gulp);
 
-gulp.task('default', function () {
-	return gulp.src('src/file.ext')
-		.pipe(chroot())
-		.pipe(gulp.dest('dist'));
+gulp.chroot('child', function() {
+  gulp.task('a', function() {
+    // process.cwd() == __dirname + '/child'
+  });
 });
+
+gulp.task('b', function() {
+  // process.cwd() == __dirname
+})
+
 ```
-
-
-## API
-
-### chroot(options)
-
-#### options
-
-##### foo
-
-Type: `boolean`  
-Default: `false`
-
-Lorem ipsum.
-
-
-## License
 
 MIT © [cgcgbcbc](https://github.com/cgcgbcbc/gulp-chroot)
