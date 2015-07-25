@@ -1,7 +1,7 @@
 {
   "name": "gulp-chroot",
-  "version": "0.0.0",
-  "description": "My riveting gulp plugin",
+  "version": "0.0.1",
+  "description": "gulp chroot plugin",
   "license": "MIT",
   "repository": "cgcgbcbc/gulp-chroot",
   "author": {
