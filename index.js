@@ -17,7 +17,7 @@ module.exports = function (gulp) {
     return function (name, deps, fn) {
       var childRoot = path.join.apply(path, rootStack);
       var parentRoot = path.join.apply(path, rootStack.slice(0, rootStack.length - 1))
-      if (arguments.length == 2) {
+      if (!Array.isArray(deps)) {
         fn = deps;
         deps = [];
       }
@@ -26,7 +26,9 @@ module.exports = function (gulp) {
         console.log(childRoot);
         console.log(parentRoot);
         process.chdir(childRoot);
-        fn.apply(this, arguments);
+        if (typeof fn === 'function') {
+          fn.apply(this, arguments);
+        }
         process.chdir(parentRoot);
       }
     };

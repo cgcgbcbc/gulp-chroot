@@ -8,10 +8,10 @@ var assert = require('assert');
 chroot(gulp);
 
 before(function(done) {
-  fs.mkdir('child', done);
+  fs.mkdir(path.join(__dirname,'child'), done);
 });
 after(function(done) {
-  fs.rmdir('child', done);
+  fs.rmdir(path.join(__dirname,'child'), done);
 });
 
 it('should chroot and restore', function() {
@@ -23,7 +23,7 @@ it('should chroot and restore', function() {
     });
   });
   gulp.task('restore', function() {
-      console.log('inside test task');
+      console.log('inside restore task');
       console.log(process.cwd());
       assert.equal(process.cwd(), path.join(__dirname));
   });
@@ -31,3 +31,14 @@ it('should chroot and restore', function() {
   gulp.start('restore');
 });
 
+it('should work with dep only', function() {
+  gulp.chroot('child', function() {
+    gulp.task('dep', function() {
+      console.log('inside dep task');
+      console.log(process.cwd());
+      assert.equal(process.cwd(), path.join(__dirname, 'child'));
+    });
+    gulp.task('testDep', ['dep']);
+  });
+  gulp.start('testDep');
+});
