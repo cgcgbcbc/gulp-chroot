@@ -54,10 +54,11 @@ it('should work with promise', function(done) {
   gulp.chroot('child', function() {
     gulp.task('promise', function() {
       return gulp.src('test.txt')
-                .pipe(through2.obj(function(){
+                .pipe(through2.obj(function(chunk, enc, cb){
                   console.log('inside promise task');
                   console.log(process.cwd());
                   assert.equal(process.cwd(), path.join(__dirname, 'child'));
+                  cb();
                 }))
                 .pipe(gulp.dest(path.join(__dirname, 'child', '2.txt')));
     });
