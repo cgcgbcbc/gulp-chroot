@@ -21,7 +21,11 @@
   "keywords": [
     "gulpplugin"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-util": "^3.0.6",
+    "harmony-reflect": "^1.4.0"
+  },
   "devDependencies": {
     "gulp": "^3.9.0",
     "mocha": "*",
