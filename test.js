@@ -52,15 +52,19 @@ it('should work with dep only', function() {
 
 it('should work with promise', function(done) {
   gulp.chroot('child', function() {
-    gulp.task('promise', function() {
+    gulp.task('promise', function(cb) {
       return gulp.src('test.txt')
                 .pipe(through2.obj(function(){
                   console.log('inside promise task');
                   console.log(process.cwd());
                   assert.equal(process.cwd(), path.join(__dirname, 'child'));
-                  done();
-                }));
+                }))
+                .pipe(gulp.dest(path.join(__dirname, 'child', 'test.txt'))).on('end', cb);
     });
   });
-  gulp.start('promise');
+  gulp.task('sync', ['promise'], function() {
+    console.log('inside sync');
+    done();
+  });
+  gulp.start('sync');
 });

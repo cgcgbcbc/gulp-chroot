@@ -1,5 +1,5 @@
 'use strict';
-
+require('harmony-reflect');
 var path = require('path');
 var rootStack;
 
@@ -16,24 +16,20 @@ module.exports = function (gulp) {
   gulp.restore = function() {
     process.chdir(rootStack[0]);
   };
-  shim(gulp, 'task', function(task) {
-    return function (name, deps, fn) {
+  gulp.task = new Proxy(gulp.task, {
+    apply: function(target, thisArg, argumentLists) {
       var childRoot = path.join.apply(path, rootStack);
-      if (!Array.isArray(deps)) {
-        fn = deps;
-        deps = [];
+      if (argumentLists.length === 3 || (argumentLists.length === 2 && typeof argumentLists[1] === 'function')) {
+        var fn = argumentLists[argumentLists.length - 1];
+        argumentLists[argumentLists.length - 1] = wrapper(fn);
       }
-      return task.call(this, name, deps, fnWrapper);
-      function fnWrapper() {
-        process.chdir(childRoot);
-        if (typeof fn === 'function') {
-          return fn.apply(this, arguments);
-        }
+      return target.apply(thisArg, argumentLists);
+      function wrapper(fn) {
+        return function() {
+          process.chdir(childRoot);
+          return fn.apply(null, arguments);
+        };
       }
-    };
+    }
   });
 };
-
-function shim (obj, meth, rep) {
-    obj[meth] = rep(obj[meth]);
-}
